@@ -1,0 +1,11 @@
+podman build -f collector.dockerfile . -t ghcr.io/haicgu/"$USER"-collector:latest
+podman build -f aggregator.dockerfile . -t ghcr.io/haicgu/"$USER"-aggregator:latest
+podman build -f client.dockerfile . -t ghcr.io/haicgu/"$USER"-client-wf:latest
+
+podman push ghcr.io/haicgu/"$USER"-collector:latest
+podman push ghcr.io/haicgu/"$USER"-aggregator:latest
+podman push ghcr.io/haicgu/"$USER"-client-wf:latest
+
+envsubst < yaml/collector_edge.yaml | kubectl create -f - 
+envsubst < yaml/aggregator_cloud.yaml | kubectl create -f - 
+envsubst < yaml/client.yaml | kubectl create -f - 
