@@ -29,7 +29,7 @@ spec:
           # command: ["sleep", "100600"] # for-testing
           env:
             - name: BROKER_ADDRESS
-              value: "mosquitto"
+              value: "mosquitto.isc25"
             - name: BROKER_PORT
               value: "1883"
             - name: TOPIC
