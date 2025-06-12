@@ -23,7 +23,7 @@ spec:
                   - key: node-role.kubernetes.io/worker
                     operator: Exists
       containers:
-        - image: isc-tutorial.hlrs.de/"$USER"/publisher:latest
+        - image: isc-tutorial.hlrs.de/$USER/publisher:latest
           name: publisher
           imagePullPolicy: Always
           # command: ["sleep", "100600"] # for-testing
@@ -33,7 +33,7 @@ spec:
             - name: BROKER_PORT
               value: "1883"
             - name: TOPIC
-              value: "decice"
+              value: "decice/$USER"
           resources:
             requests:
               memory: 100Mi
