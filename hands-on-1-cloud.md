@@ -6,9 +6,22 @@ This guide provides instructions for building and deploying MQTT publisher and s
 ## Prerequisites
 - Userid/password will be shared during the tutorial
 - Access to a Kubernetes cluster.(https://haicgu.github.io/access.html)
-    ```
-    ssh guoehi-dev
-   ```
+   - Using local ssh client on Linux
+      - Add the following entry to ```$HOME/.ssh/config``` (note that indented lines require a tab)
+      ```
+      Host guoehi
+         HostName 141.2.112.17
+         User YOUR_USERNAME
+         ServerAliveInterval 60
+         IdentityFile /REPLACE/WITH/PATH/TO/PRIVATE_KEY
+      Host guoehi-dev
+         HostName dev
+         user YOUR_USERNAME
+         IdentityFile /REPLACE/WITH/PATH/TO/PRIVATE_KEY
+         ProxyCommand ssh -q -W %h:%p isc-tut
+      ```
+      - Connect to the development node using ```ssh guoehi-dev```
+      - Alternatively, first connect to login node using ```ssh guoehi``` and, thereafter, connect to the development node using ```ssh dev```
    - Alternatively you can use the web console: https://isc-tutorial.hlrs.de/
 - Check access to kubernetes cluster
   ```
