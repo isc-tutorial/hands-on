@@ -28,7 +28,7 @@ spec:
           imagePullPolicy: Always
           env:
             - name: BROKER_ADDRESS
-              value: "mosquitto"
+              value: "mosquitto.isc25"
             - name: BROKER_PORT
               value: "1883"
           resources:

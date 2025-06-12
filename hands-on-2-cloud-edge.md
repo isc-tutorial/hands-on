@@ -14,7 +14,7 @@ Same as for workflow-1
 1. **Prepare Your Environment**
    - Navigate to the demo folder and desired workflow:
      ```bash
-     cd demo/hands-on/workflow-2
+     cd ~/demo/workflow-2
      ```
 2. **Build and Push Docker Images**
    - **Aggregator Image**
