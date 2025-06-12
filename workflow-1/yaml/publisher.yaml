@@ -42,7 +42,7 @@ spec:
               memory: 200Mi
               cpu: 200m
       imagePullSecrets:
-        - name: github-secret-haicgu
+        - name: tutorial-registry-secret
       restartPolicy: Always
       # dnsPolicy: ClusterFirstWithHostNet
 # ---
