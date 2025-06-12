@@ -45,7 +45,7 @@ This guide provides instructions for building and deploying MQTT publisher and s
    Password for the Image Repository can be found in /mnt/dev-lscratch/tutorial/registry.pass
    ```bash
    cat /mnt/dev-lscratch/tutorial/registry.pass
-   podman https://isc-tutorial.hlrs.de/ -u ISC25
+   podman login https://isc-tutorial.hlrs.de/ -u ISC25
    # enter/copy password from registry.pass
    ```
 
