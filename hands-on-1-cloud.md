@@ -8,15 +8,13 @@ This guide provides instructions for building and deploying MQTT publisher and s
 - Access to a Kubernetes cluster.(https://haicgu.github.io/access.html)
     ```
     ssh guoehi-dev
-    cd
-    mkdir .kube
-    cp /mnt/dev-lscratch/tutorial/config ~/.kube
    ```
    - Alternatively you can use the web console: https://isc-tutorial.hlrs.de/
 - Check access to kubernetes cluster
   ```
   kubectl get nodes -A
    ```
+   - k8s credentials for the tutorial must already be configured in your account. If not, set k8s config manually: `export KUBECONFIG=/home/kubernetes/decice-kubeconfig`
 - We are using a private Image Repository for this tutorial. Password for the Image Repository can be found in `/mnt/dev-lscratch/tutorial/registry.pass`
 
 - Podman installed on your machine.
