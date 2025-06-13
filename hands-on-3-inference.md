@@ -1,8 +1,8 @@
 # Container Deployment Instructions
 
 ## Overview
-We record the speech and transcribe them at edge (using Whisper.cpp) and send them to the cloud for inference (models are served using ollama).
-whisper.cpp is an inference library for running OpenAI’s Whisper speech-to-text model locally and efficiently. 
+We record speech and transcribe them at edge (using Whisper.cpp) and send them to the cloud for inference (models are served using ollama).
+whisper.cpp is an inference library for running OpenAI’s Whisper speech-to-text model locally. 
 Ollama is a tool for running LLMs. We will be serving tinyllama model using ollama.
 The inference is then displayed at edge using the MQTTtoSerial converter mentioned in the previous hands-on.
 
@@ -20,14 +20,14 @@ In addition to the prerequisites for hand-on 1 and 2, we will also need a microp
 1. **Build and push the Whisper.cpp Docker Image**
    ```bash
    cd ~/demo/workflow-3/whisper
-   podman build -f dockerfile . -t isc-tutorial.hlrs.de/"$USER"/whisper:latest
+   podman build -f Dockerfile . -t isc-tutorial.hlrs.de/"$USER"/whisper:latest
    podman push isc-tutorial.hlrs.de/"$USER"/whisper:latest
    ```
 
-2. **Build the ollama client Docker Image**
+2. **Build the ollama/mqtt client Docker Image**
    ```bash
    cd ~/demo/workflow-3/ollama
-   podman build -f dockerfile . -t isc-tutorial.hlrs.de/"$USER"/mqttollamaclient:latest
+   podman build -f Dockerfile . -t isc-tutorial.hlrs.de/"$USER"/mqttollamaclient:latest
    podman push isc-tutorial.hlrs.de/"$USER"/mqttollamaclient:latest
    ```
 
@@ -35,11 +35,10 @@ In addition to the prerequisites for hand-on 1 and 2, we will also need a microp
 
 1. **Deploy the Whisper.cpp Publisher**
    ```bash
-   Open the 
    envsubst < ~/demo/workflow-3/whisper/deployment.yaml | sed 's/-isc25_/-isc25-/g' | kubectl create -f -
    ```
 
-2. **Deploy the MQTT Subscriber**
+2. **Deploy the client for ollama/mqtt**
    ```bash
    envsubst < ~/demo/workflow-3/ollama/deployment.yaml | sed 's/-isc25_/-isc25-/g' | kubectl create -f -
    ```
@@ -49,11 +48,11 @@ In addition to the prerequisites for hand-on 1 and 2, we will also need a microp
      ```bash
      kubectl get pods -n decice
      ```
-   - **Logs for Publisher**
+   - **Logs for ollama**
      ```bash
      kubectl logs -n decice -f [whisper_pod_name]
      ```
-   - **Logs for Subscriber**
+   - **Logs for ollama**
      ```bash
      kubectl logs -n decice -f [ollama_pod_name]
      ```
