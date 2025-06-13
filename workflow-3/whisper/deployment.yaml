@@ -13,7 +13,7 @@ spec:
   template:
     metadata:
       labels:
-	app: whisper-$USER
+        app: whisper-$USER
     spec:
       nodeSelector:
         kubernetes.io/hostname: isc-edge-01
