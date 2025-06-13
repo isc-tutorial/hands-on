@@ -13,35 +13,35 @@ spec:
   template:
     metadata:
       labels:
-        app: whisper-$USER
+	app: whisper-$USER
     spec:
       nodeSelector:
-        kubernetes.io/hostname: isc-edge-02
-      
+        kubernetes.io/hostname: isc-edge-01
+
       imagePullSecrets:
       - name: tutorial-registry-secret
 
       volumes:
-        - name: model-volume
-          emptyDir: {}
+#        - name: model-volume
+#          emptyDir: {}
         - name: sound-dev
           hostPath:
             path: /dev/snd
-      initContainers:
-        - name: download-model
-          image: busybox:latest
-          command:
-            - sh
-            - -c
-            - >
-              wget https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-base.bin
-              -O /models/ggml-base.bin
-          volumeMounts:
-            - name: model-volume
-              mountPath: /models
+#      initContainers:
+#        - name: download-model
+#          image: busybox:latest
+#          command:
+#            - sh
+#            - -c
+#            - >
+#               sleep infinity
+#              wget -O /models/ggml-base.bin 'https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-medium.bin'
+#          volumeMounts:
+#            - name: model-volume
+#              mountPath: /models
       containers:
         - name: whisper
-          image: "isc-tutorial.hlrs.de/$USER/whisper:latest"
+          image: "isc-tutorial.hlrs.de/$USER/whisper:321"
           imagePullPolicy: Always
           env:
             - name: MQTT_SERVER
@@ -59,7 +59,7 @@ spec:
             runAsUser: 0
             runAsGroup: 0
           volumeMounts:
-            - name: model-volume
-              mountPath: /models
+#            - name: model-volume
+#              mountPath: /models
             - name: sound-dev
               mountPath: /dev/snd
