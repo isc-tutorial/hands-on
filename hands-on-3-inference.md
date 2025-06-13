@@ -1,12 +1,15 @@
 # Container Deployment Instructions
 
 ## Overview
-We record the speech and transcribe them at edge (using Whisper.cpp) and send them to the cloud or edge for inference (models served using ollama).
-The whisper.cpp is compiled while building the dockerfile. 
-For ollama, we use the offical docker image for pulling and serving the model. The ollama pod will have two containers. One does the inference 
+We record the speech and transcribe them at edge (using Whisper.cpp) and send them to the cloud for inference (models are served using ollama).
+whisper.cpp is an inference library for running OpenAI’s Whisper speech-to-text model locally and efficiently. 
+Ollama is a tool for running LLMs.
+The inference is then displayed at edge using the MQTTtoSerial converter mentioned in the previous hands-on.
+
+![Workflow diagram](workflow-3/workflow3 overview.png)
 
 ## Prerequisites
-In addition to the prerequisites for hand-on 1 and 2, we will also need microphone attached to the Raspberry Pi.
+In addition to the prerequisites for hand-on 1 and 2, we will also need a microphone attached to the Raspberry Pi.
 
 ## Build and push the images
 
