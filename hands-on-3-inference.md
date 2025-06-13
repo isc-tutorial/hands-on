@@ -3,7 +3,7 @@
 ## Overview
 We record the speech and transcribe them at edge (using Whisper.cpp) and send them to the cloud for inference (models are served using ollama).
 whisper.cpp is an inference library for running OpenAI’s Whisper speech-to-text model locally and efficiently. 
-Ollama is a tool for running LLMs.
+Ollama is a tool for running LLMs. We will be serving tinyllama model using ollama.
 The inference is then displayed at edge using the MQTTtoSerial converter mentioned in the previous hands-on.
 
 ![Workflow diagram](workflow-3/overview.png)
@@ -58,6 +58,9 @@ In addition to the prerequisites for hand-on 1 and 2, we will also need a microp
      kubectl logs -n decice -f [ollama_pod_name]
      ```
 
+### Deploying ollama at Edge
+- To run Ollama at edge we can remove the "affinity" in its deployment.yaml and add the "nodeSelector" to select the raspberry Pi where we would like to run it. Refer Whisper's deployment.yaml for nodeSelector.
+
 #### Cleanup
 
 - **Undeploy the whisper pod**
@@ -70,5 +73,3 @@ In addition to the prerequisites for hand-on 1 and 2, we will also need a microp
    envsubst < ~/demo/workflow-3/ollama/deployment.yaml | sed 's/-isc25_/-isc25-/g' | kubectl create -f -
   ```
 
-### Note
-This README is intended to guide you through setting up your development environment for deployment. Adjust the instructions as needed to fit your specific project requirements.
