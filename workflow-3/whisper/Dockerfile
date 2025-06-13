@@ -7,9 +7,8 @@ RUN apt update && apt install -y --no-install-recommends \
     cmake \
     libcurl4-openssl-dev \
     libsdl2-dev \
-    alsa-utils
-
-RUN rm -rf /var/lib/apt/lists/*
+    alsa-utils \
+    && rm -rf /var/lib/apt/lists/*
 
 # Clone whisper.cpp repo
 RUN git clone https://github.com/ggml-org/whisper.cpp.git
