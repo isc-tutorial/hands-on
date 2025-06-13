@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ollama-inference-$USER
+  namespace: decice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ollama-inference-$USER
+  template:
+    metadata:
+      labels:
+        app: ollama-inference-$USER
+    spec:
+      imagePullSecrets:
+      - name: tutorial-registry-secret
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: node-role.kubernetes.io/agent
+                    operator: DoesNotExist
+      volumes:
+        - name: model-data
+          emptyDir: {}
+      containers:
+        - name: ollama-server
+          image: ollama/ollama:latest
+          command: ["ollama", "serve"]
+          volumeMounts:
+            - name: model-data
+              mountPath: /root/.ollama
+          env:
+            - name: OLLAMA_KEEP_ALIVE
+              value: "-1"
+          ports:
+            - containerPort: 11434
+        - name: mqtt-infer-client
+          image: isc-tutorial.hlrs.de/$USER/mqttollamaclient:latest
+          imagePullPolicy: Always
+          env:
+            - name: MQTT_SERVER
+              value: "mosquitto.isc25"
+            - name: MQTT_SUB_TOPIC
+              value: "mic/stream"
+            - name: MQTT_PUB_TOPIC
+              value: "clock1/message"
+            - name: INFERENCE_MODEL
+              value: "tinyllama"
+            - name: INFERENCE_SERVER
+              value: "http://localhost:11434"
