@@ -6,6 +6,10 @@ whisper.cpp is an inference library for running OpenAI’s Whisper speech-to-tex
 Ollama is a tool for running LLMs.
 The inference is then displayed at edge using the MQTTtoSerial converter mentioned in the previous hands-on.
 
+![Workflow diagram](workflow-3/overview.png)
+
+![Workflow diagram](workflow-3/whisper-pod.png)
+
 ![Workflow diagram](workflow-3/ollama-pod.png)
 
 ## Prerequisites
