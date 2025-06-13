@@ -22,6 +22,11 @@ RUN cmake --build build --config Release
 # Copy the binary to /usr/local/bin
 RUN cp build/bin/whisper-stream /usr/local/bin
 
+# Download the model
+RUN apt update && apt install -y --no-install-recommends wget
+WORKDIR /models
+RUN wget https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-base.bin -O /models/ggml-base.bin
+
 WORKDIR /
 
 # Upgrade pip
